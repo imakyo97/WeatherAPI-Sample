@@ -11,8 +11,14 @@ import RxCocoa
 
 class WeatherViewController: UIViewController {
 
-    @IBOutlet private weak var weatherLabel: UILabel!
+    @IBOutlet private weak var cityLabel: UILabel!
     @IBOutlet private weak var weatherImageView: UIImageView!
+    @IBOutlet private weak var weatherLabel: UILabel!
+    @IBOutlet private weak var tempMaxLabel: UILabel!
+    @IBOutlet private weak var tempMinLabel: UILabel!
+    @IBOutlet private weak var tempLabel: UILabel!
+    @IBOutlet private weak var humidityLabel: UILabel!
+    @IBOutlet private weak var pressureLabel: UILabel!
 
     private let viewModel: WeatherViewModelType
     private let disposeBag = DisposeBag()
@@ -33,9 +39,37 @@ class WeatherViewController: UIViewController {
     }
 
     private func setupBinding() {
-        viewModel.outputs.WeatherIconName
+        viewModel.outputs.cityName
+            .drive(cityLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.weatherIconName
             .map { UIImage(named: $0) }
             .drive(weatherImageView.rx.image)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.weather
+            .drive(weatherLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.tempMax
+            .drive(tempMaxLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.tempMin
+            .drive(tempMinLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.temp
+            .drive(tempLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.humidity
+            .drive(humidityLabel.rx.text)
+            .disposed(by: disposeBag)
+
+        viewModel.outputs.pressure
+            .drive(pressureLabel.rx.text)
             .disposed(by: disposeBag)
 
         viewModel.outputs.event
