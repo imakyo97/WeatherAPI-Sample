@@ -44,7 +44,10 @@ final class WeatherAPI: WeatherAPIProtocol {
                 return completion(.failure(WeatherAPIError.dataNotFound))
             }
             do {
-                let weatherData = try JSONDecoder().decode(WeatherData.self, from: data)
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let weatherData = try decoder.decode(WeatherData.self, from: data)
+                print(weatherData)
                 completion(.success(weatherData))
             } catch let error {
                 completion(

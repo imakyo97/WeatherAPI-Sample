@@ -14,7 +14,14 @@ protocol WeatherViewModelInput {
 }
 
 protocol WeatherViewModelOutput {
-    var WeatherIconName: Driver<String> { get }
+    var cityName: Driver<String> { get }
+    var weatherIconName: Driver<String> { get }
+    var weather: Driver<String> { get }
+    var tempMax: Driver<String> { get }
+    var tempMin: Driver<String> { get }
+    var temp: Driver<String> { get }
+    var humidity: Driver<String> { get }
+    var pressure: Driver<String> { get }
     var event: Driver<WeatherViewModel.Event> { get }
 }
 
@@ -29,15 +36,50 @@ final class WeatherViewModel: WeatherViewModelInput, WeatherViewModelOutput {
     }
 
     private let weatherAPI: WeatherAPIProtocol
+    private let cityNameRelay = PublishRelay<String>()
     private let weatherIconNameRelay = PublishRelay<String>()
+    private let weatherRelay = PublishRelay<String>()
+    private let tempMaxRelay = PublishRelay<String>()
+    private let tempMinRelay = PublishRelay<String>()
+    private let tempRelay = PublishRelay<String>()
+    private let humidityRelay = PublishRelay<String>()
+    private let pressureRelay = PublishRelay<String>()
     private let eventRelay = PublishRelay<Event>()
 
     init(weatherAPI: WeatherAPIProtocol = WeatherAPI()) {
         self.weatherAPI = weatherAPI
     }
 
-    var WeatherIconName: Driver<String> {
+    var weatherIconName: Driver<String> {
         weatherIconNameRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var cityName: Driver<String> {
+        cityNameRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var weather: Driver<String> {
+        weatherRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var tempMax: Driver<String> {
+        tempMaxRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var tempMin: Driver<String> {
+        tempMinRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var temp: Driver<String> {
+        tempRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var humidity: Driver<String> {
+        humidityRelay.asDriver(onErrorDriveWith: .empty())
+    }
+
+    var pressure: Driver<String> {
+        pressureRelay.asDriver(onErrorDriveWith: .empty())
     }
 
     var event: Driver<Event> {
@@ -49,14 +91,25 @@ final class WeatherViewModel: WeatherViewModelInput, WeatherViewModelOutput {
             guard let strongSelf = self else { return }
             switch result {
             case .success(let weatherData):
-                guard let lastWeatherIcon = weatherData.weather.last?.icon else { return }
-                strongSelf.weatherIconNameRelay.accept(lastWeatherIcon)
+                strongSelf.weatherAccept(weatherData: weatherData)
             case .failure(let error):
                 strongSelf.eventRelay.accept(
                     .presentAlert(reason: error.reason)
                 )
             }
         }
+    }
+
+    private func weatherAccept(weatherData: WeatherData) {
+        cityNameRelay.accept(weatherData.name)
+        guard let lastWeather = weatherData.weather.last else { return }
+        weatherIconNameRelay.accept(lastWeather.icon)
+        weatherRelay.accept(lastWeather.description)
+        tempMaxRelay.accept(String(weatherData.main.tempMax))
+        tempMinRelay.accept(String(weatherData.main.tempMin))
+        tempRelay.accept(String(weatherData.main.temp))
+        humidityRelay.accept(String(weatherData.main.humidity))
+        pressureRelay.accept(String(weatherData.main.pressure))
     }
 }
 
