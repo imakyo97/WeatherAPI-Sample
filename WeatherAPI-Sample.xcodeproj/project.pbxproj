@@ -13,6 +13,7 @@
 		47E77263274A46EE00695488 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47E77261274A46EE00695488 /* LaunchScreen.storyboard */; };
 		47E7726C274A491000695488 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7726A274A491000695488 /* WeatherViewController.swift */; };
 		47E7726D274A491000695488 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47E7726B274A491000695488 /* WeatherViewController.xib */; };
+		47E7726F274B390D00695488 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E7726E274B390D00695488 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		47E77264274A46EE00695488 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47E7726A274A491000695488 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		47E7726B274A491000695488 /* WeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
+		47E7726E274B390D00695488 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				47E77258274A46ED00695488 /* SceneDelegate.swift */,
 				47E7726A274A491000695488 /* WeatherViewController.swift */,
 				47E7726B274A491000695488 /* WeatherViewController.xib */,
+				47E7726E274B390D00695488 /* WeatherData.swift */,
 				47E7725F274A46EE00695488 /* Assets.xcassets */,
 				47E77261274A46EE00695488 /* LaunchScreen.storyboard */,
 				47E77264274A46EE00695488 /* Info.plist */,
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E7726F274B390D00695488 /* WeatherData.swift in Sources */,
 				47E77257274A46ED00695488 /* AppDelegate.swift in Sources */,
 				47E7726C274A491000695488 /* WeatherViewController.swift in Sources */,
 				47E77259274A46ED00695488 /* SceneDelegate.swift in Sources */,
