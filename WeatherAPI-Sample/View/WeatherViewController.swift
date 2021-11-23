@@ -19,6 +19,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet private weak var tempLabel: UILabel!
     @IBOutlet private weak var humidityLabel: UILabel!
     @IBOutlet private weak var pressureLabel: UILabel!
+    @IBOutlet private weak var cityTextField: UITextField!
+    @IBOutlet private weak var enterButton: UIButton!
 
     private let viewModel: WeatherViewModelType
     private let disposeBag = DisposeBag()
@@ -35,10 +37,17 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBinding()
-        viewModel.inputs.viewDidLoad()
     }
 
     private func setupBinding() {
+        cityTextField.rx.text
+            .bind(to: viewModel.inputs.cityTextRelay)
+            .disposed(by: disposeBag)
+
+        enterButton.rx.tap
+            .subscribe(onNext: viewModel.inputs.didTapEnterButton)
+            .disposed(by: disposeBag)
+
         viewModel.outputs.cityName
             .drive(cityLabel.rx.text)
             .disposed(by: disposeBag)

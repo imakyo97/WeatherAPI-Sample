@@ -11,6 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WeatherViewController" customModule="WeatherAPI_Sample" customModuleProvider="target">
             <connections>
                 <outlet property="cityLabel" destination="fsp-dV-F0r" id="RKH-Z0-8e5"/>
+                <outlet property="cityTextField" destination="Uxh-yf-eQS" id="oBu-uT-Z2Q"/>
+                <outlet property="enterButton" destination="kyC-f1-0td" id="ktk-wL-Ru5"/>
                 <outlet property="humidityLabel" destination="6g9-Eo-WDq" id="xVn-2p-8hz"/>
                 <outlet property="pressureLabel" destination="khg-6g-W98" id="YSp-bE-Ire"/>
                 <outlet property="tempLabel" destination="WxV-Em-fbe" id="ykA-po-kLD"/>
@@ -26,11 +28,10 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyC-f1-0td">
-                    <rect key="frame" x="174" y="666" width="67" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyC-f1-0td">
+                    <rect key="frame" x="178" y="732.5" width="58.5" height="31"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Enter"/>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Exe-KV-g1u">
                     <rect key="frame" x="82" y="144" width="250" height="324"/>
@@ -104,7 +105,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Csn-FG-ogx">
-                    <rect key="frame" x="105.5" y="538.5" width="203.5" height="65"/>
+                    <rect key="frame" x="96" y="538.5" width="222.5" height="65"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="E6F-zt-Hm7">
                             <rect key="frame" x="0.0" y="4" width="29" height="57"/>
@@ -140,15 +141,14 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBb-yb-OUM">
-                            <rect key="frame" x="101.5" y="0.0" width="1" height="65"/>
-                            <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                            <rect key="frame" x="101.5" y="0.0" width="20" height="65"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="65" id="HDA-xW-yMk"/>
-                                <constraint firstAttribute="width" constant="1" id="sMg-SN-1B3"/>
+                                <constraint firstAttribute="width" constant="20" id="sMg-SN-1B3"/>
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gOj-1g-1LY">
-                            <rect key="frame" x="102.5" y="12" width="101" height="41"/>
+                            <rect key="frame" x="121.5" y="12" width="101" height="41"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBS-HR-xPq">
                                     <rect key="frame" x="0.0" y="0.0" width="101" height="20.5"/>
@@ -213,7 +213,21 @@
                     </subviews>
                 </stackView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="現在" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAT-Ad-97x">
-                    <rect key="frame" x="105.5" y="518" width="35" height="20.5"/>
+                    <rect key="frame" x="96" y="518" width="35" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Uxh-yf-eQS">
+                    <rect key="frame" x="142" y="683.5" width="130" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="7YU-1I-78a"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="都市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3l-v8-Plk">
+                    <rect key="frame" x="99" y="690.5" width="35" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -222,21 +236,24 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Uxh-yf-eQS" firstAttribute="centerY" secondItem="f3l-v8-Plk" secondAttribute="centerY" id="6yG-TJ-eHF"/>
+                <constraint firstItem="Uxh-yf-eQS" firstAttribute="top" secondItem="Csn-FG-ogx" secondAttribute="bottom" constant="80" id="9hk-iE-zI0"/>
                 <constraint firstItem="KAT-Ad-97x" firstAttribute="top" secondItem="Exe-KV-g1u" secondAttribute="bottom" constant="50" id="9ni-bh-dNG"/>
                 <constraint firstItem="Csn-FG-ogx" firstAttribute="leading" secondItem="KAT-Ad-97x" secondAttribute="leading" id="VF2-Yg-sMv"/>
+                <constraint firstItem="kyC-f1-0td" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Vyv-NG-tgo"/>
                 <constraint firstItem="Exe-KV-g1u" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="al3-nl-EiC"/>
                 <constraint firstItem="Csn-FG-ogx" firstAttribute="top" secondItem="KAT-Ad-97x" secondAttribute="bottom" id="dCm-NO-S0Z"/>
+                <constraint firstItem="kyC-f1-0td" firstAttribute="top" secondItem="Uxh-yf-eQS" secondAttribute="bottom" constant="15" id="oTq-z9-mj1"/>
                 <constraint firstItem="Csn-FG-ogx" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="qAL-He-W8V"/>
+                <constraint firstItem="Uxh-yf-eQS" firstAttribute="leading" secondItem="f3l-v8-Plk" secondAttribute="trailing" constant="8" symbolic="YES" id="shV-f5-JPa"/>
                 <constraint firstItem="Exe-KV-g1u" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="wea-ow-r6C"/>
+                <constraint firstItem="Uxh-yf-eQS" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="z9X-x7-ICS"/>
             </constraints>
             <point key="canvasLocation" x="442.02898550724643" y="83.705357142857139"/>
         </view>
     </objects>
     <resources>
         <image name="thermometer" catalog="system" width="81" height="128"/>
-        <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

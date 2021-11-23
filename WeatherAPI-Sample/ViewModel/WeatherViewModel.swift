@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 
 protocol WeatherViewModelInput {
-    func viewDidLoad()
+    var cityTextRelay: BehaviorRelay<String?> { get }
+    func didTapEnterButton()
 }
 
 protocol WeatherViewModelOutput {
@@ -34,6 +35,8 @@ final class WeatherViewModel: WeatherViewModelInput, WeatherViewModelOutput {
     enum Event {
         case presentAlert(reason: String)
     }
+
+    let cityTextRelay = BehaviorRelay<String?>(value: "")
 
     private let weatherAPI: WeatherAPIProtocol
     private let cityNameRelay = PublishRelay<String>()
@@ -86,8 +89,8 @@ final class WeatherViewModel: WeatherViewModelInput, WeatherViewModelOutput {
         eventRelay.asDriver(onErrorDriveWith: .empty())
     }
 
-    func viewDidLoad() {
-        weatherAPI.fechWeather(city: "Fukuoka") { [weak self] result in
+    func didTapEnterButton() {
+        weatherAPI.fechWeather(city: cityTextRelay.value!) { [weak self] result in
             guard let strongSelf = self else { return }
             switch result {
             case .success(let weatherData):
