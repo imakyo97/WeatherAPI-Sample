@@ -45,7 +45,10 @@ class WeatherViewController: UIViewController {
             .disposed(by: disposeBag)
 
         enterButton.rx.tap
-            .subscribe(onNext: viewModel.inputs.didTapEnterButton)
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { return }
+                Task { await strongSelf.viewModel.inputs.didTapEnterButton() }
+            })
             .disposed(by: disposeBag)
 
         viewModel.outputs.cityName

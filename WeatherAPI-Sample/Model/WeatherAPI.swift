@@ -9,53 +9,45 @@ import Foundation
 
 enum WeatherAPIError: Error {
     case urlTypeConversionFailure
-    case dataNotFound
+    case networkError
     case jsonDecodeFailure(String)
 
     var reason: String {
         switch self {
         case .urlTypeConversionFailure:
             return "URL型の変換に失敗しました"
-        case .dataNotFound:
-            return "データが見つかりません"
+        case .networkError:
+            return "ネットワークエラー"
         case .jsonDecodeFailure(let reason):
             return reason
+
         }
     }
 }
 
 protocol WeatherAPIProtocol {
-    func fechWeather(city: String, completion: @escaping CompletionHandler<WeatherData>)
+    func fechWeather(city: String) async throws -> WeatherData
 }
 
-typealias CompletionHandler<T> = (Result<T,WeatherAPIError>) -> Void
-
 final class WeatherAPI: WeatherAPIProtocol {
-    func fechWeather(city: String, completion: @escaping CompletionHandler<WeatherData>) {
+    func fechWeather(city: String) async throws -> WeatherData {
         let urlString = createURLString(city: city)
         guard let url = URL(string: urlString) else {
-            return completion(.failure(WeatherAPIError.urlTypeConversionFailure))
+            throw WeatherAPIError.urlTypeConversionFailure
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                return completion(.failure(WeatherAPIError.dataNotFound))
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let weatherData = try decoder.decode(WeatherData.self, from: data)
-                print(weatherData)
-                completion(.success(weatherData))
-            } catch let error {
-                completion(
-                    .failure(WeatherAPIError.jsonDecodeFailure(error.localizedDescription))
-                )
-            }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw WeatherAPIError.networkError }
+        do {
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            let weatherData = try decoder.decode(WeatherData.self, from: data)
+            return weatherData
+        } catch let error {
+            throw WeatherAPIError.jsonDecodeFailure(error.localizedDescription)
         }
-        task.resume()
     }
 
     private func createURLString(city: String) -> String {
